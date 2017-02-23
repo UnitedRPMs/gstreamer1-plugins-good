@@ -1,8 +1,5 @@
 %global         majorminor      1.0
 
-#global gitrel     140
-#global gitcommit  9865730cfa5b3a8b2560d082e7e56b350042d3d2
-#global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
 Version:        1.11.1
@@ -12,13 +9,7 @@ Summary:        GStreamer plugins with good code and licensing
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 
-%if 0%{?gitrel}
-# git clone git://anongit.freedesktop.org/gstreamer/gst-plugins-good
-# cd gst-plugins-good; git reset --hard %{gitcommit}; ./autogen.sh; make; make distcheck
-Source0:        gst-plugins-good-%{version}.tar.xz
-%else
 Source0:        http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-%{version}.tar.xz
-%endif
 
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
