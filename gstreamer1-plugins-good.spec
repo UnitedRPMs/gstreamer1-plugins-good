@@ -35,6 +35,9 @@ BuildRequires:	aalib-devel
 BuildRequires:	libcaca-devel
 BuildRequires:	cairo-devel
 BuildRequires:	libgudev1-devel
+BuildRequires:	zlib-devel
+BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
+
 
 %ifnarch s390 s390x
 BuildRequires:  libavc1394-devel
@@ -90,7 +93,6 @@ to be installed.
 %setup -q -n gst-plugins-good-%{version}
 
 %build
-CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wno-error" CXXFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wno-error" CPPFLAGS="-Wdate-time -D_FORTIFY_SOURCE=2" LDFLAGS="-Wl,-z,relro -Wl,-z,defs -Wl,-O1 -Wl,--as-needed"
 
 %configure \
   --with-package-name='Fedora GStreamer-plugins-good package' \
@@ -98,7 +100,11 @@ CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -
   --enable-experimental \
   --enable-gtk-doc \
   --enable-orc \
-  --enable-jack 
+  --enable-jack \
+  --enable-bz2 \
+  --with-default-audiosink=autoaudiosink \
+  --with-default-visualizer=goom
+  --enable-zlib 
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
