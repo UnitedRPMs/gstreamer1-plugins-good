@@ -1,19 +1,12 @@
 %global         majorminor      1.0
 
-# Turn off extras package on RHEL.
-%if ! 0%{?rhel}
-%bcond_without extras
-%else
-%bcond_with extras
-%endif
-
 #global gitrel     140
 #global gitcommit  9865730cfa5b3a8b2560d082e7e56b350042d3d2
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
 Version:        1.11.1
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -107,6 +100,7 @@ to be installed.
 
 %build
 %configure \
+  --disable-silent-rules --disable-fatal-warnings \
   --with-package-name='Fedora GStreamer-plugins-good package' \
   --with-package-origin='http://download.fedoraproject.org' \
   --enable-experimental \
