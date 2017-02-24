@@ -1,15 +1,20 @@
+%global gitdate 20170223
+%global commit0 804f238b3e0e873fa77aa43a4d38fab33df1c31c
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global gver .%{gitdate}git%{shortcommit0}
+
 %global         majorminor      1.0
 
 
 Name:           gstreamer1-plugins-good
 Version:        1.11.1
-Release:        1%{?dist}
+Release:        1%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 
-Source0:        http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-%{version}.tar.xz
+Source0: 	https://github.com/GStreamer/gst-plugins-good/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
@@ -37,6 +42,9 @@ BuildRequires:	cairo-devel
 BuildRequires:	libgudev1-devel
 BuildRequires:	zlib-devel
 BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
+BuildRequires:	git
+BuildRequires:	autoconf-archive
+BuildRequires:	intltool
 
 
 %ifnarch s390 s390x
@@ -90,9 +98,12 @@ to be installed.
 
 
 %prep
-%setup -q -n gst-plugins-good-%{version}
+%autosetup -n gst-plugins-good-%{commit0} 
+rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common  
 
 %build
+
+NOCONFIGURE=1 ./autogen.sh
 
 %configure \
   --with-package-name='Fedora GStreamer-plugins-good package' \
@@ -253,6 +264,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Thu Feb 23 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.1-1.20170223git804f238
+- Updated to 1.11.1-1.20170223git804f238
 
 * Fri Jan 27 2017 David Vásquez <davidjeremias82 AT gmail DOT com> 1.11.1-1
 - Updated to 1.11.1
