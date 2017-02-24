@@ -106,6 +106,10 @@ rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common
 
 NOCONFIGURE=1 ./autogen.sh
 
+%if 0%{?fedora} >= 26
+CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wno-error" CXXFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wno-error" CPPFLAGS="-Wdate-time -D_FORTIFY_SOURCE=2" LDFLAGS="-Wl,-z,relro -Wl,-z,defs -Wl,-O1 -Wl,--as-needed"
+%endif
+
 %configure \
   --with-package-name='Fedora GStreamer-plugins-good package' \
   --with-package-origin='http://download.fedoraproject.org' \
