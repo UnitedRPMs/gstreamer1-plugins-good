@@ -1,5 +1,5 @@
 %global gitdate 20170223
-%global commit0 804f238b3e0e873fa77aa43a4d38fab33df1c31c
+%global commit0 3a6900df4575866d9e6aa1b41de0817696f0f6e7
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .%{gitdate}git%{shortcommit0}
 
@@ -45,6 +45,7 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
 BuildRequires:	git
 BuildRequires:	autoconf-archive
 BuildRequires:	intltool
+BuildRequires:	libtool
 
 
 %ifnarch s390 s390x
@@ -265,8 +266,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %changelog
 
-* Thu Feb 23 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.1-1.20170223git804f238
-- Updated to 1.11.1-1.20170223git804f238
+* Thu Feb 23 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.1-1.20170223git3a6900d
+- Updated to 1.11.1-1.20170223git3a6900d
 
 * Fri Jan 27 2017 David Vásquez <davidjeremias82 AT gmail DOT com> 1.11.1-1
 - Updated to 1.11.1
