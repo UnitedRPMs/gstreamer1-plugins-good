@@ -114,7 +114,7 @@ NOCONFIGURE=1 ./autogen.sh
   --enable-jack \
   --enable-bz2 \
   --with-default-audiosink=autoaudiosink \
-  --with-default-visualizer=goom
+  --with-default-visualizer=goom \
   --enable-zlib 
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
