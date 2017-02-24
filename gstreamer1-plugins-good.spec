@@ -1,5 +1,5 @@
-%global gitdate 20170223
-%global commit0 3a6900df4575866d9e6aa1b41de0817696f0f6e7
+%global gitdate 20170224
+%global commit0 994b1ac3510731178777a1ad4c873ae1b011e4cc
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .%{gitdate}git%{shortcommit0}
 
@@ -7,7 +7,7 @@
 
 
 Name:           gstreamer1-plugins-good
-Version:        1.11.1
+Version:        1.11.2
 Release:        1%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -270,8 +270,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %changelog
 
-* Thu Feb 23 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.1-1.20170223git3a6900d
-- Updated to 1.11.1-1.20170223git3a6900d
+* Fri Feb 24 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.2-1.20170224git994b1ac
+- Updated to 1.11.2-1.20170223git994b1ac
 
 * Fri Jan 27 2017 David Vásquez <davidjeremias82 AT gmail DOT com> 1.11.1-1
 - Updated to 1.11.1
