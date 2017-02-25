@@ -271,7 +271,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %changelog
 
 * Fri Feb 24 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.2-1.20170224git994b1ac
-- Updated to 1.11.2-1.20170223git994b1ac
+- Updated to 1.11.2-1.20170224git994b1ac
 
 * Fri Jan 27 2017 David Vásquez <davidjeremias82 AT gmail DOT com> 1.11.1-1
 - Updated to 1.11.1
