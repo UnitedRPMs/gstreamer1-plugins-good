@@ -8,7 +8,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.11.2
-Release:        1%{?gver}%{dist}
+Release:        2%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
