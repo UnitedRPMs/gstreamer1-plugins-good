@@ -118,8 +118,7 @@ CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -
   --enable-orc \
   --enable-jack \
   --enable-bz2 \
-  --with-default-audiosink=autoaudiosink \
-  --with-default-visualizer=goom \
+  --with-default-visualizer=autoaudiosink \
   --enable-zlib 
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
@@ -269,6 +268,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Mon Feb 27 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.2-2.20170224git994b1ac
+- Solved compatibility with official package
 
 * Fri Feb 24 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.2-1.20170224git994b1ac
 - Updated to 1.11.2-1.20170224git994b1ac
