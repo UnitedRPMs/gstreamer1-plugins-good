@@ -7,7 +7,7 @@
 
 
 Name:           gstreamer1-plugins-good
-Version:        1.11.2
+Version:        1.11.90
 Release:        2%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -268,6 +268,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Thu Apr 20 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.90-2
+- Updated to 1.11.90-2
 
 * Mon Feb 27 2017 David Vásquez <davidva AT tutanota DOT com> 1.11.2-2.20170224git994b1ac
 - Solved compatibility with official package

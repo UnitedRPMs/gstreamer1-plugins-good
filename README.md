@@ -4,7 +4,7 @@
  
 Summary:        GStreamer plugins with good code and licensing
  
-Version:        1.11.2
+Version:        1.11.90
  
 License:        LGPLv2+
  
