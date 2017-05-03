@@ -218,7 +218,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstmultifile.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmultipart.so
 %{_libdir}/gstreamer-%{majorminor}/libgstnavigationtest.so
-%{_libdir}/gstreamer-%{majorminor}/libgstoss4audio.so
+%{_libdir}/gstreamer-%{majorminor}/libgstoss4.so
+# %{_libdir}/gstreamer-%{majorminor}/libgstoss4audio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstreplaygain.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtsp.so
@@ -241,10 +242,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstjpeg.so
 %{_libdir}/gstreamer-%{majorminor}/libgstossaudio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstpng.so
-%{_libdir}/gstreamer-%{majorminor}/libgstpulse.so
+%{_libdir}/gstreamer-%{majorminor}/libgstpulseaudio.so
+# %{_libdir}/gstreamer-%{majorminor}/libgstpulse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtpmanager.so
 %{_libdir}/gstreamer-%{majorminor}/libgstshout2.so
-%{_libdir}/gstreamer-%{majorminor}/libgstsouphttpsrc.so
+%{_libdir}/gstreamer-%{majorminor}/libgstsoup.so
+# %{_libdir}/gstreamer-%{majorminor}/libgstsouphttpsrc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstspeex.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttaglib.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideo4linux2.so
@@ -255,6 +258,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstcacasink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmonoscope.so
 
+%{_libdir}/gstreamer-%{majorminor}/libgstcairo.so
 
 %ifnarch s390 s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstdv.so
