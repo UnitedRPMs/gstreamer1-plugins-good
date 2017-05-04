@@ -119,6 +119,7 @@ CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -
   --enable-jack \
   --enable-bz2 \
   --with-default-visualizer=autoaudiosink \
+  --enable-silent-rules \
   --enable-zlib 
 
   # https://bugzilla.gnome.org/show_bug.cgi?id=655517
