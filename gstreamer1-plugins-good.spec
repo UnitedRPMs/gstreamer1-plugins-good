@@ -259,7 +259,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstcacasink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmonoscope.so
 
-%{_libdir}/gstreamer-%{majorminor}/libgstcairo.so
+# %{_libdir}/gstreamer-%{majorminor}/libgstcairo.so
 
 %ifnarch s390 s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstdv.so
