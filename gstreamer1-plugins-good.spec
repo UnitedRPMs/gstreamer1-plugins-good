@@ -1,5 +1,5 @@
-%global gitdate 20170720
-%global commit0 188ab74da41dc0d0c62e7918327fba7bdabdf314
+%global gitdate 20170920
+%global commit0 4ce0249911fb4dda1a7e643a91490a10f2a6d415
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -7,8 +7,8 @@
 
 
 Name:           gstreamer1-plugins-good
-Version:        1.12.2
-Release:        2%{?gver}%{dist}
+Version:        1.12.3
+Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -112,7 +112,7 @@ CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -
 
 %configure \
   --with-package-name='Fedora GStreamer-plugins-good package' \
-  --with-package-origin='http://download.fedoraproject.org' \
+  --with-package-origin='https://unitedrpms.github.io/' \
   --enable-experimental \
   --enable-gtk-doc \
   --enable-orc \
@@ -220,7 +220,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstmultipart.so
 %{_libdir}/gstreamer-%{majorminor}/libgstnavigationtest.so
 %{_libdir}/gstreamer-%{majorminor}/libgstoss4.so
-# %{_libdir}/gstreamer-%{majorminor}/libgstoss4audio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstreplaygain.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtsp.so
@@ -236,6 +235,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstwavparse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstximagesrc.so
 %{_libdir}/gstreamer-%{majorminor}/libgsty4menc.so
+%{_libdir}/gstreamer-%{majorminor}/libgstcairo.so
 
 # gstreamer-plugins with external dependencies but in the main package
 %{_libdir}/gstreamer-%{majorminor}/libgstflac.so
@@ -244,11 +244,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstossaudio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstpng.so
 %{_libdir}/gstreamer-%{majorminor}/libgstpulseaudio.so
-# %{_libdir}/gstreamer-%{majorminor}/libgstpulse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrtpmanager.so
 %{_libdir}/gstreamer-%{majorminor}/libgstshout2.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsoup.so
-# %{_libdir}/gstreamer-%{majorminor}/libgstsouphttpsrc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstspeex.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttaglib.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideo4linux2.so
@@ -259,7 +257,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstcacasink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmonoscope.so
 
-# %{_libdir}/gstreamer-%{majorminor}/libgstcairo.so
 
 %ifnarch s390 s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstdv.so
@@ -273,6 +270,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Mon Sep 18 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> - 1.12.3-7.git4ce0249
+- Updated to 1.12.3-7.git4ce0249
 
 * Thu Jul 20 2017 Unitedrpms Project <unitedrpms AT protonmail DOT com> - 1.12.2-2.git188ab74
 - Updated to 1.12.2-2.git188ab74
