@@ -237,7 +237,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstwavparse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstximagesrc.so
 %{_libdir}/gstreamer-%{majorminor}/libgsty4menc.so
-%{_libdir}/gstreamer-%{majorminor}/libgstcairo.so
+%{?with_cairo:%{_libdir}/gstreamer-%{majorminor}/libgstcairo.so} 
 
 # gstreamer-plugins with external dependencies but in the main package
 %{_libdir}/gstreamer-%{majorminor}/libgstflac.so
