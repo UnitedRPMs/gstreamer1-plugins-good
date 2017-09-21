@@ -4,7 +4,7 @@
 %global gver .git%{shortcommit0}
 
 %global         majorminor      1.0
-
+%bcond_without	cairo		
 
 Name:           gstreamer1-plugins-good
 Version:        1.12.3
@@ -38,7 +38,8 @@ BuildRequires:  libv4l-devel
 BuildRequires:  libvpx-devel >= 1.1.0
 BuildRequires:	aalib-devel
 BuildRequires:	libcaca-devel
-BuildRequires:	cairo-devel
+%{?with_cairo:BuildRequires:	cairo-devel >= 1.10.0}
+%{?with_cairo:BuildRequires:	cairo-gobject-devel >= 1.10.0}
 BuildRequires:	libgudev1-devel
 BuildRequires:	zlib-devel
 BuildRequires:  pkgconfig(glib-2.0) >= 2.40.0
@@ -119,6 +120,7 @@ CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -
   --enable-jack \
   --enable-bz2 \
   --with-default-visualizer=autoaudiosink \
+%{!?with_cairo:--disable-cairo} \
   --enable-silent-rules \
   --enable-zlib 
 
