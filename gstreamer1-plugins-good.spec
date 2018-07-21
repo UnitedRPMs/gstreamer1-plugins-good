@@ -47,7 +47,7 @@ BuildRequires:	git
 BuildRequires:	autoconf-archive
 BuildRequires:	intltool
 BuildRequires:	libtool
-
+BuildRequires:	gcc-c++
 
 %ifnarch s390 s390x
 BuildRequires:  libavc1394-devel
@@ -273,7 +273,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 %changelog
 
-* Sat Jul 20 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.14.2-7.git4733e97
+* Fri Jul 20 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.14.2-7.git4733e97
 - Updated to 1.14.2-7.git4733e97
 
 * Mon May 21 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.14.1-7.gitf1eed72
