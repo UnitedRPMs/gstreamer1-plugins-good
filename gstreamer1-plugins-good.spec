@@ -1,5 +1,5 @@
-%global gitdate 20181003
-%global commit0 d88d1b0e43b140587f35c7c9bf390fae051e427d
+%global gitdate 20190118
+%global commit0 e579614b1ac3178540b57921765a7b298990c3e4
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -7,7 +7,7 @@
 %bcond_without	cairo		
 
 Name:           gstreamer1-plugins-good
-Version:        1.14.4
+Version:        1.15.1
 Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -259,6 +259,8 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstcacasink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmonoscope.so
 
+# Now the gtk plugin is here (previous in gstreamer1-plugins-bad-free)
+%{_libdir}/gstreamer-%{majorminor}/libgstgtk.so
 
 %ifnarch s390 s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstdv.so
@@ -272,6 +274,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Fri Jan 18 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.15.1-7.gite579614
+- Updated to 1.15.1-7.gite579614
 
 * Wed Oct 03 2018 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.14.4-7.gitd88d1b0
 - Updated to 1.14.4-7.gitd88d1b0
