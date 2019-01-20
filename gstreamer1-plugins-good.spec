@@ -260,7 +260,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstmonoscope.so
 
 # Now the gtk plugin is here (previous in gstreamer1-plugins-bad-free)
-%{_libdir}/gstreamer-%{majorminor}/libgstgtk.so
+#{_libdir}/gstreamer-{majorminor}/libgstgtk.so
 
 %ifnarch s390 s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstdv.so
