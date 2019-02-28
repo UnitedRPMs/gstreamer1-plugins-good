@@ -1,5 +1,5 @@
-%global gitdate 20190118
-%global commit0 e579614b1ac3178540b57921765a7b298990c3e4
+%global gitdate 20190227
+%global commit0 48b46e3f14033b3dbbd5d4664e868c73c71020ef
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -7,7 +7,7 @@
 %bcond_without	cairo		
 
 Name:           gstreamer1-plugins-good
-Version:        1.15.1
+Version:        1.15.2
 Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -106,10 +106,6 @@ rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common
 %build
 
 NOCONFIGURE=1 ./autogen.sh
-
-%if 0%{?fedora} >= 26
-CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wno-error" CXXFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wall -Wno-error" CPPFLAGS="-Wdate-time -D_FORTIFY_SOURCE=2" LDFLAGS="-Wl,-z,relro -Wl,-z,defs -Wl,-O1 -Wl,--as-needed"
-%endif
 
 %configure \
   --with-package-name='Fedora GStreamer-plugins-good package' \
@@ -274,6 +270,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Wed Feb 27 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.15.2-7.git48b46e3
+- Updated to 1.15.2-7.git48b46e3
 
 * Fri Jan 18 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.15.1-7.gite579614
 - Updated to 1.15.1-7.gite579614
