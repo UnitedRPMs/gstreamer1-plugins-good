@@ -51,6 +51,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	make
 # gtk
 BuildRequires:  gtk3-devel >= 3.4
+BuildRequires:	mesa-libGLES-devel
 # qt
 BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Qml)
