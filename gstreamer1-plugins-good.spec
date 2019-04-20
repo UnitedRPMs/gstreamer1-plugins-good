@@ -49,6 +49,14 @@ BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRequires:	gcc-c++
 BuildRequires:	make
+# gtk
+BuildRequires:  gtk3-devel >= 3.4
+# qt
+BuildRequires: pkgconfig(Qt5Gui)
+BuildRequires: pkgconfig(Qt5Qml)
+BuildRequires: pkgconfig(Qt5Quick)
+BuildRequires: pkgconfig(Qt5X11Extras)
+BuildRequires: pkgconfig(Qt5WaylandClient)
 
 %ifnarch s390 s390x
 BuildRequires:  libavc1394-devel
@@ -80,7 +88,35 @@ plugins.
 GStreamer Good Plugins is a collection of well-supported plugins of
 good quality and under the LGPL license.
 
+%package gtk
+Summary:         GStreamer "good" plugins gtk plugin
+Requires:        %{name}%{?_isa} = %{version}-%{release}
+# handle upgrade path
+Obsoletes:       gstreamer1-plugins-bad-free-gtk < 1.13.1-2
+Provides:        gstreamer1-plugins-bad-free-gtk = %{version}-%{release}
+Provides:        gstreamer1-plugins-bad-free-gtk%{?_isa} = %{version}-%{release}
+ 
+%description gtk
+GStreamer is a streaming media framework, based on graphs of elements which
+operate on media data.
+ 
+GStreamer Good Plugins is a collection of well-supported plugins of
+good quality and under the LGPL license.
+ 
+This package (%{name}-gtk) contains the gtksink output plugin.
 
+%package qt
+Summary:         GStreamer "good" plugins qt qml plugin
+Requires:        %{name}%{?_isa} = %{version}-%{release}
+
+%description qt
+GStreamer is a streaming media framework, based on graphs of elements which
+operate on media data.
+ 
+GStreamer Good Plugins is a collection of well-supported plugins of
+good quality and under the LGPL license.
+ 
+This package (%{name}-qt) contains the qtsink output plugin.
 
 %package extras
 Summary:        Extra GStreamer plugins with good code and licensing
@@ -256,8 +292,13 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstcacasink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmonoscope.so
 
+%files gtk
+# Plugins with external dependencies
 # Now the gtk plugin is here (previous in gstreamer1-plugins-bad-free)
 %{_libdir}/gstreamer-%{majorminor}/libgstgtk.so
+
+%files qt
+%{_libdir}/gstreamer-%{majorminor}/libgstqmlgl.so
 
 %ifnarch s390 s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstdv.so
