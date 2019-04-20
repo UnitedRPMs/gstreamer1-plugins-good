@@ -1,5 +1,5 @@
-%global gitdate 20190227
-%global commit0 48b46e3f14033b3dbbd5d4664e868c73c71020ef
+%global gitdate 20190419
+%global commit0 646dc1ef9b92841e235d10a8262882b6e7d97422
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -7,7 +7,7 @@
 %bcond_without	cairo		
 
 Name:           gstreamer1-plugins-good
-Version:        1.15.2
+Version:        1.16.0
 Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -48,6 +48,7 @@ BuildRequires:	autoconf-archive
 BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRequires:	gcc-c++
+BuildRequires:	make
 
 %ifnarch s390 s390x
 BuildRequires:  libavc1394-devel
@@ -256,7 +257,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstmonoscope.so
 
 # Now the gtk plugin is here (previous in gstreamer1-plugins-bad-free)
-#{_libdir}/gstreamer-{majorminor}/libgstgtk.so
+%{_libdir}/gstreamer-%{majorminor}/libgstgtk.so
 
 %ifnarch s390 s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstdv.so
@@ -270,6 +271,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Fri Apr 19 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.16.0-7.git646dc1e
+- Updated to 1.16.0-7.git646dc1e
 
 * Wed Feb 27 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.15.2-7.git48b46e3
 - Updated to 1.15.2-7.git48b46e3
