@@ -8,17 +8,20 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.16.0
-Release:        7%{?gver}%{dist}
+Release:        8%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 
 Source0: 	https://github.com/GStreamer/gst-plugins-good/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Patch:		gst-plugins-good-1.16.0-v4l2_fix-1.patch
 
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 
+BuildRequires:  meson
+BuildRequires:  ninja-build
 BuildRequires:  flac-devel >= 1.1.4
 BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  libjpeg-devel
@@ -138,7 +141,7 @@ to be installed.
 
 
 %prep
-%autosetup -n gst-plugins-good-%{commit0} 
+%autosetup -n gst-plugins-good-%{commit0} -p1
 rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common  
 
 %build
@@ -313,6 +316,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Sat Sep 14 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.16.0-8.git646dc1e
+- Fix type compatibility issue with glibc 2.30
 
 * Fri Apr 19 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.16.0-7.git646dc1e
 - Updated to 1.16.0-7.git646dc1e
