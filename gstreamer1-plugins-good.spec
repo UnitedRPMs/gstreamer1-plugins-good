@@ -1,5 +1,5 @@
-%global gitdate 20190419
-%global commit0 646dc1ef9b92841e235d10a8262882b6e7d97422
+%global gitdate 20191002
+%global commit0 d7d290b64c1282398f3265522a33e093b7233310
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -7,15 +7,14 @@
 %bcond_without	cairo		
 
 Name:           gstreamer1-plugins-good
-Version:        1.16.0
-Release:        8%{?gver}%{dist}
+Version:        1.16.1
+Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 
 Source0: 	https://github.com/GStreamer/gst-plugins-good/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-Patch:		gst-plugins-good-1.16.0-v4l2_fix-1.patch
 
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
@@ -141,7 +140,7 @@ to be installed.
 
 
 %prep
-%autosetup -n gst-plugins-good-%{commit0} -p1
+%autosetup -n gst-plugins-good-%{commit0} 
 rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common  
 
 %build
@@ -316,6 +315,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Wed Oct 02 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.16.1-7.gitd7d290b
+- Updated to 1.16.1-7.gitd7d290b
 
 * Sat Sep 14 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.16.0-8.git646dc1e
 - Fix type compatibility issue with glibc 2.30
