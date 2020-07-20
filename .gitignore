@@ -3,5 +3,5 @@ BUILDROOT/*
 RPMS/*
 SPECS/*
 SRPMS/*
-gstreamer1-plugins-good*.tar.gz
+*.tar.gz
 .directory

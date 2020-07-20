@@ -1,5 +1,5 @@
-%global gitdate 20191204
-%global commit0 ce0723527aa37d5f4d19ef8021c0b2eb8f83b08d
+%global gitdate 20200716
+%global commit0 629b8bf2cf6b19ecacf05c18d97aa3b4db524ef1
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -7,7 +7,7 @@
 %bcond_without	cairo		
 
 Name:           gstreamer1-plugins-good
-Version:        1.16.2
+Version:        1.17.2
 Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -20,6 +20,8 @@ BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
 
 BuildRequires:  meson
+BuildRequires:	cmake
+BuildRequires:	nasm
 BuildRequires:  ninja-build
 BuildRequires:  flac-devel >= 1.1.4
 BuildRequires:  gdk-pixbuf2-devel
@@ -51,6 +53,10 @@ BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRequires:	gcc-c++
 BuildRequires:	make
+BuildRequires:  lame-devel
+BuildRequires:  twolame-devel
+BuildRequires:  mpg123-devel
+BuildRequires:  libcaca-devel
 # gtk
 BuildRequires:  gtk3-devel >= 3.4
 BuildRequires:	mesa-libGLES-devel
@@ -144,32 +150,25 @@ to be installed.
 rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common  
 
 %build
-
-NOCONFIGURE=1 ./autogen.sh
-
-%configure \
-  --with-package-name='Fedora GStreamer-plugins-good package' \
-  --with-package-origin='https://unitedrpms.github.io/' \
-  --enable-experimental \
-  --enable-gtk-doc \
-  --enable-orc \
-  --enable-jack \
-  --enable-bz2 \
-  --with-default-visualizer=autoaudiosink \
-%{!?with_cairo:--disable-cairo} \
-  --enable-silent-rules \
-  --enable-zlib 
-
-  # https://bugzilla.gnome.org/show_bug.cgi?id=655517
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-
-
-make %{?_smp_mflags} V=0
-
-
+%meson \
+  -D package-name='UnitedRPMs GStreamer-plugins-good package' \
+  -D package-origin='https://unitedrpms.github.io' \
+  -D doc=disabled \
+  -D gtk_doc=disabled \
+  -D orc=enabled \
+  -D jack=enabled \
+  -D bz2=enabled \
+  -D zlib=enabled \
+  -D default-visualizer=autoaudiosink \
+%ifarch s390 s390x
+  -D dv=disabled -D dv1394=disabled \
+%endif
+ 
+ 
+%meson_build
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%meson_install
+
 
 # Register as an AppStream component to be visible in the software center
 #
@@ -178,8 +177,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 #
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 #
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-cat > $RPM_BUILD_ROOT%{_datadir}/appdata/gstreamer-good.appdata.xml <<EOF
+mkdir -p %{buildroot}%{_metainfodir}
+cat > %{buildroot}%{_metainfodir}/gstreamer-good.appdata.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2013 Richard Hughes <richard@hughsie.com> -->
 <component type="codec">
@@ -216,9 +215,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %files -f gst-plugins-good-%{majorminor}.lang
 %license COPYING
 %doc AUTHORS README REQUIREMENTS
-%{_datadir}/appdata/*.appdata.xml
-%doc %{_datadir}/gtk-doc/html/gst-plugins-good-plugins-%{majorminor}
-
+%{_metainfodir}/gstreamer-good.appdata.xml
 # Equaliser presets
 %dir %{_datadir}/gstreamer-%{majorminor}/presets/
 %{_datadir}/gstreamer-%{majorminor}/presets/GstVP8Enc.prs
@@ -291,6 +288,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstvpx.so
 %{_libdir}/gstreamer-%{majorminor}/libgstwavpack.so
 
+%{_libdir}/gstreamer-%{majorminor}/libgstlame.so
+%{_libdir}/gstreamer-%{majorminor}/libgstmpg123.so
+%{_libdir}/gstreamer-%{majorminor}/libgsttwolame.so
+
 %{_libdir}/gstreamer-%{majorminor}/libgstaasink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcacasink.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmonoscope.so
@@ -315,6 +316,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Fri Jul 10 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.17.2-7.git629b8bf
+- Updated to 1.17.2
 
 * Wed Dec 04 2019 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.16.2-7.gitce07235
 - Updated to 1.16.2-7.gitce07235
