@@ -1,5 +1,5 @@
 %global gitdate 20200716
-%global commit0 629b8bf2cf6b19ecacf05c18d97aa3b4db524ef1
+%global commit0 6419368b4caa4df769451b7bc7f27f3cada390d6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -7,7 +7,7 @@
 %bcond_without	cairo		
 
 Name:           gstreamer1-plugins-good
-Version:        1.17.2
+Version:        1.17.90
 Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -159,6 +159,7 @@ rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common
   -D jack=enabled \
   -D bz2=enabled \
   -D zlib=enabled \
+  -D rpicamsrc=disabled \
   -D default-visualizer=autoaudiosink \
 %ifarch s390 s390x
   -D dv=disabled -D dv1394=disabled \
@@ -316,6 +317,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Tue Aug 25 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.17.90-7.git6419368
+- Updated to 1.17.90
 
 * Fri Jul 10 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.17.2-7.git629b8bf
 - Updated to 1.17.2
