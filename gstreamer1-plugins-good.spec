@@ -1,13 +1,18 @@
 %global gitdate 20200716
-%global commit0 cc896a7e9031de420ab915ab94451ffa9c1bf26d
+%global commit0 5486a60e245493190b5b3feda1839f55a5c0e011
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
 %global         majorminor      1.0
-%bcond_without	cairo		
+%bcond_without	cairo	
+%if 0%{?fedora} >= 34
+%bcond_without  qt5
+%endif
+
+%define _legacy_common_support 1	
 
 Name:           gstreamer1-plugins-good
-Version:        1.18.2
+Version:        1.18.3
 Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -61,11 +66,18 @@ BuildRequires:  libcaca-devel
 BuildRequires:  gtk3-devel >= 3.4
 BuildRequires:	mesa-libGLES-devel
 # qt
+%if %{with qt5}
 BuildRequires: pkgconfig(Qt5Gui)
+BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: pkgconfig(Qt5WaylandClient)
+BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: qt5-qtdeclarative-devel
+BuildRequires: qt5-linguist
+BuildRequires:	pkgconfig(Qt5Help)
+%endif
 
 %ifnarch s390 s390x
 BuildRequires:  libavc1394-devel
@@ -114,6 +126,7 @@ good quality and under the LGPL license.
  
 This package (%{name}-gtk) contains the gtksink output plugin.
 
+%if ! %{with qt5}
 %package qt
 Summary:         GStreamer "good" plugins qt qml plugin
 Requires:        %{name}%{?_isa} = %{version}-%{release}
@@ -126,6 +139,7 @@ GStreamer Good Plugins is a collection of well-supported plugins of
 good quality and under the LGPL license.
  
 This package (%{name}-qt) contains the qtsink output plugin.
+%endif
 
 %package extras
 Summary:        Extra GStreamer plugins with good code and licensing
@@ -146,11 +160,15 @@ to be installed.
 
 
 %prep
-%autosetup -n gst-plugins-good-%{commit0} 
-rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common  
+%autosetup -n gst-plugins-good-%{commit0} -p1
+rm -rf common && git clone https://github.com/GStreamer/common.git
+
+sed -i "s/gst-plugin-scanner/gst-plugin-scanner-%{_target_cpu}/" meson.build
 
 %build
-%meson \
+
+
+%meson   \
   -D package-name='UnitedRPMs GStreamer-plugins-good package' \
   -D package-origin='https://unitedrpms.github.io' \
   -D doc=disabled \
@@ -161,10 +179,14 @@ rm -rf common && git clone git://anongit.freedesktop.org/gstreamer/common
   -D zlib=enabled \
   -D rpicamsrc=disabled \
   -D default-visualizer=autoaudiosink \
+  -D tests=disabled \
+  %if %{with qt5}
+  -D qt5=disabled \
+  %endif
 %ifarch s390 s390x
   -D dv=disabled -D dv1394=disabled \
 %endif
- 
+
  
 %meson_build
 %install
@@ -302,8 +324,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 # Now the gtk plugin is here (previous in gstreamer1-plugins-bad-free)
 %{_libdir}/gstreamer-%{majorminor}/libgstgtk.so
 
+%if ! %{with qt5}
 %files qt
 %{_libdir}/gstreamer-%{majorminor}/libgstqmlgl.so
+%endif
 
 %ifnarch s390 s390x
 %{_libdir}/gstreamer-%{majorminor}/libgstdv.so
@@ -317,6 +341,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Mon Jan 25 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.3-7.gite816c6c
+- Updated to 1.18.3
 
 * Mon Dec 07 2020 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.2-7.gitcc896a7
 - Updated to 1.18.2
