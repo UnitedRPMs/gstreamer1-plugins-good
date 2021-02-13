@@ -5,21 +5,21 @@
 
 %global         majorminor      1.0
 %bcond_without	cairo	
-%if 0%{?fedora} >= 34
-%bcond_without  qt5
-%endif
+%bcond_with  qt5
+
 
 %define _legacy_common_support 1	
 
 Name:           gstreamer1-plugins-good
 Version:        1.18.3
-Release:        7%{?gver}%{dist}
+Release:        8%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 
 Source0: 	https://github.com/GStreamer/gst-plugins-good/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Patch:		gstreamer1-plugins-good-gcc11.patch
 
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
@@ -66,7 +66,7 @@ BuildRequires:  libcaca-devel
 BuildRequires:  gtk3-devel >= 3.4
 BuildRequires:	mesa-libGLES-devel
 # qt
-%if %{with qt5}
+%if ! %{with qt5}
 BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Qml)
@@ -341,6 +341,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Sat Feb 13 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.3-8.gite816c6c
+- Rebuilt
 
 * Mon Jan 25 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.3-7.gite816c6c
 - Updated to 1.18.3
