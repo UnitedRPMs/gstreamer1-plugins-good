@@ -1,5 +1,5 @@
 %global gitdate 20200716
-%global commit0 5486a60e245493190b5b3feda1839f55a5c0e011
+%global commit0 941312f3d54c89475d5d50aa9dddc0a2987fcf5a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -11,8 +11,8 @@
 %define _legacy_common_support 1	
 
 Name:           gstreamer1-plugins-good
-Version:        1.18.3
-Release:        8%{?gver}%{dist}
+Version:        1.18.4
+Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -168,7 +168,7 @@ sed -i "s/gst-plugin-scanner/gst-plugin-scanner-%{_target_cpu}/" meson.build
 %build
 
 
-%meson   \
+meson build --prefix=/usr --libdir=%{_libdir} --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc   \
   -D package-name='UnitedRPMs GStreamer-plugins-good package' \
   -D package-origin='https://unitedrpms.github.io' \
   -D doc=disabled \
@@ -188,9 +188,9 @@ sed -i "s/gst-plugin-scanner/gst-plugin-scanner-%{_target_cpu}/" meson.build
 %endif
 
  
-%meson_build
+%meson_build -C build
 %install
-%meson_install
+%meson_install -C build
 
 
 # Register as an AppStream component to be visible in the software center
@@ -341,6 +341,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Mon Apr 19 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.4-7.git941312f
+- Updated to 1.18.4
 
 * Sat Feb 13 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.3-8.gite816c6c
 - Rebuilt
