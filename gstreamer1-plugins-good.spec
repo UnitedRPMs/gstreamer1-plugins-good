@@ -1,5 +1,5 @@
 %global gitdate 20200716
-%global commit0 941312f3d54c89475d5d50aa9dddc0a2987fcf5a
+%global commit0 0dcb2aaadc803dec4e0808745d98b3377bfe6b04
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -11,7 +11,7 @@
 %define _legacy_common_support 1	
 
 Name:           gstreamer1-plugins-good
-Version:        1.18.4
+Version:        1.19.1
 Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -19,7 +19,7 @@ License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 
 Source0: 	https://github.com/GStreamer/gst-plugins-good/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-Patch:		gstreamer1-plugins-good-gcc11.patch
+#Patch:		gstreamer1-plugins-good-gcc11.patch
 
 BuildRequires:  gstreamer1-devel >= %{version}
 BuildRequires:  gstreamer1-plugins-base-devel >= %{version}
@@ -341,6 +341,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Sun Jun 20 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.19.1-7.git0dcb2aa
+- Updated to 1.19.1
 
 * Mon Apr 19 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.18.4-7.git941312f
 - Updated to 1.18.4
