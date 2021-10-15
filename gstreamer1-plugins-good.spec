@@ -1,5 +1,5 @@
 %global gitdate 20200716
-%global commit0 0dcb2aaadc803dec4e0808745d98b3377bfe6b04
+%global commit0 20bbeb5e37666c53c254c7b08470ad8a00d97630
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
@@ -11,7 +11,7 @@
 %define _legacy_common_support 1	
 
 Name:           gstreamer1-plugins-good
-Version:        1.19.1
+Version:        1.19.2
 Release:        7%{?gver}%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
@@ -341,6 +341,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Mon Oct 04 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.19.2-7.git20bbeb5
+- Updated to 1.19.2
 
 * Sun Jun 20 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.19.1-7.git0dcb2aa
 - Updated to 1.19.1
