@@ -3,6 +3,10 @@
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gver .git%{shortcommit0}
 
+%global         meson_conf      meson --buildtype=release --prefix=/usr --libdir=%{_libdir} --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc
+
+%global debug_package %{nil}
+
 %global         majorminor      1.0
 %bcond_without	cairo	
 %bcond_with  qt5
@@ -11,14 +15,14 @@
 %define _legacy_common_support 1	
 
 Name:           gstreamer1-plugins-good
-Version:        1.19.2
-Release:        7%{?gver}%{dist}
+Version:        1.19.3
+Release:        7%{dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 
-Source0: 	https://github.com/GStreamer/gst-plugins-good/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source0: 	https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-%{version}.tar.xz
 #Patch:		gstreamer1-plugins-good-gcc11.patch
 
 BuildRequires:  gstreamer1-devel >= %{version}
@@ -160,15 +164,13 @@ to be installed.
 
 
 %prep
-%autosetup -n gst-plugins-good-%{commit0} -p1
+%autosetup -n gst-plugins-good-%{version} -p1
 rm -rf common && git clone https://github.com/GStreamer/common.git
 
 sed -i "s/gst-plugin-scanner/gst-plugin-scanner-%{_target_cpu}/" meson.build
 
 %build
-
-
-meson build --prefix=/usr --libdir=%{_libdir} --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc   \
+%meson_conf _build \
   -D package-name='UnitedRPMs GStreamer-plugins-good package' \
   -D package-origin='https://unitedrpms.github.io' \
   -D doc=disabled \
@@ -188,9 +190,10 @@ meson build --prefix=/usr --libdir=%{_libdir} --libexecdir=/usr/libexec --bindir
 %endif
 
  
-%meson_build -C build
+%meson_build -C _build
+
 %install
-%meson_install -C build
+%meson_install -C _build 
 
 
 # Register as an AppStream component to be visible in the software center
@@ -341,6 +344,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+
+* Wed Nov 17 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.19.3-7
+- Updated to 1.19.3
 
 * Mon Oct 04 2021 Unitedrpms Project <unitedrpms AT protonmail DOT com> 1.19.2-7.git20bbeb5
 - Updated to 1.19.2
